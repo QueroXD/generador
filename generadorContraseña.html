@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" integrity="sha384-SI27wrMjH3ZZ89r4o+fGIJtnzkAnFs3E4qz9DIYioCQ5l9Rd/7UAa8DHcaL8jkWt" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/js/bootstrap.min.js" integrity="sha384-3qaqj0lc6sV/qpzrc1N5DC6i1VRn/HyX4qdPaiEFbn54VjQBEU341pvjz7Dv3n6P" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+	<hr>
+	<div class="row">
+		<div class="col-10 offset-1">
+			<div class="card">
+				<div class="row no-gutters">
+					<div class="col-12">
+						<div class="card-header" align="center">
+							<h1>Generador Contraseñas</h1>
+						</div>
+						<div class="card-body">
+							<div class="row">
+								<div class="col-6">
+									<br>
+									<form class="form-group">
+										<label>Cantidad de letras.</label>
+										<input type="text" id="lletres" name="lletres" value="" class="form-control" />
+										<br>
+										<label>Cantidad de numeros.</label>
+										<input type="text" id="numeros" name="numeros" value="" class="form-control" />
+										<br>
+										<label>Cantidad de caracteres especiales.</label>
+										<input type="text" id="especials" name="especials" value="" class="form-control" />
+										<br>
+										<label>Generar Contraseña: </label>
+										<a href="#" class="btn btn-primary" onclick="generaContrasenya()">Crear Contraseña</a>
+										<a href="#" class="btn btn-primary" onclick="generaSuperContrasenya()">Crear Super Contraseña</a>
+									</form>
+								</div>
+								<div class="col-6" align="center">
+									<br><br>
+									<h5 class="card card-header">Contraseña Generada</h5>
+									<div id="contrasenyaGenerada" class="card card-body">
+										<!-- Aqui s'ha de mostrar la contrasenya generada amb JavaScript -->
+									</div>
+									<br>
+									<h5 class="card card-header">Super Contraseña Generada</h5>
+									<div id="superContrasenyaGenerada" class="card card-body">
+										<!-- Aqui s'ha de mostrar la super contrasenya generada amb JavaScript -->
+									</div>
+								</div>
+							</div>
+						</div>
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<script>
+//Abecedari 26 --> "abcdefghijklmnopkrstuvwxyz"
+const lletres = "abcdefghijklmnopkrstuvwxyz";
+
+//Numeros 10 --> "0123456789"
+const numeros = "0123456789"
+
+//Caracters Especials 24 --> "!#$%&()*+,-.:;<=>@[]_{}|"
+const especials = "!#$%&()*+,-.:;<=>@[]_{}|";
+
+//Tot junt per generar la super contrasenya
+const caracters = "abcdefghijklmnopkrstuvwxyz0123456789!#$%&()*+,-.:;<=>@[]_{}|";
+
+//Funció generaContrasenya() quan l'usuari clica el botó
+//Per generar la contrasenya primer van les lletres, després els numeros i al final els especials
+//Exemple per 4 lletres, 2 numeros i 1 especial --> asix22!
+function generaContrasenya() {
+	const numlletres = parseInt(document.querySelector("#lletres").value);
+	const numNumeros = parseInt(document.querySelector("#numeros").value);
+	const numEspecials = parseInt(document.querySelector("#especials").value);
+
+	// Mostrar "hola" en el apartado contraseña generada
+	const divContra = document.querySelector("#contrasenyaGenerada");
+	let contra = "";
+
+	for (let i=0; i<numlletres; i++){
+		let posAleatoria = Math.floor(Math.random()*lletres.length);
+		contra += lletres[posAleatoria];
+	}
+	for (let i=0; i<numNumeros; i++){
+		let posAleatoria = Math.floor(Math.random()*numeros.length);
+		contra += numeros[posAleatoria];
+	}
+	for (let i=0; i<numEspecials; i++){
+		let posAleatoria = Math.floor(Math.random()*especials.length);
+		contra += especials[posAleatoria];
+	}
+
+	divContra.innerHTML = contra;
+}
+
+//Funció generaSuperContrasenya() quan l'usuari clica el botó
+//Per generar la super contrasenya no hi ha un ordre i utilitzrem la constiable de tots els caracters junts
+//Si l'usuari introdueix 10 lletres, 2 numeros i 2 especials es generarà una super contrasenya de 10+2+2 = 14 caracters
+function generaSuperContrasenya() { 
+	const numlletres = parseInt(document.querySelector("#lletres").value);
+	const numNumeros = parseInt(document.querySelector("#numeros").value);
+	const numEspecials = parseInt(document.querySelector("#especials").value);
+	const longitudContra = numlletres + numNumeros + numEspecials;
+
+	const divSuperContra = document.querySelector("#superContrasenyaGenerada");
+
+	let = contra = "";
+
+	for (let i = 0; i<longitudContra; i++){
+		let posAleatoria =  Math.floor(Math.random()*caracters.length)
+		if (caracters[posAleatoria] === "<") caracters[posAleatoria] = "&lt;"
+		if (caracters[posAleatoria] === ">") caracters[posAleatoria] = "&gt;"
+		contra += caracters[posAleatoria];
+	}
+
+	divSuperContra.innerHTML = contra;
+}
+</script>
+</body>
+</html>
